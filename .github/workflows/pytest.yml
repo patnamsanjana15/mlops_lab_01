@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+      - 'releases/**' # Runs on any push to 'main' or 'releases/*' branches
+    branches-ignore:
+      - dev  # Ignores pushes to the 'dev' branch
   pull_request:
     branches:
       - main
@@ -19,14 +22,28 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12'  # Set Python version (same version you're using)
+        python-version: '3.12'  # Use Python version 3.12 or the one you are using
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Ensure you have pytest listed in requirements.txt
+        pip install -r requirements.txt  # Make sure pytest is in your requirements.txt
 
-    - name: Run Pytest
-      run: |
-        pytest --maxfail=1 --disable-warnings -q  # Run tests
+    - name: Run tests and generate XML report
+      run: pytest --maxfail=1 --disable-warnings --junitxml=pytest-report.xml  # Run tests and output results in XML format
+
+    - name: Upload test results
+      if: always()  # Always upload results, even if tests fail
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: pytest-report.xml
+
+    - name: Notify on success
+      if: success()
+      run: echo "Tests passed successfully"
+
+    - name: Notify on failure
+      if: failure()
+      run: echo "Tests failed"
 
