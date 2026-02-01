@@ -1,9 +1,12 @@
-**MLOps Lab 1: Python Testing and GitHub Actions**
-Overview
+# MLOps Lab 1: Python Testing and GitHub Actions
 
-This project implements basic arithmetic functions in Python and automates testing using Pytest and Unittest. GitHub Actions is set up to automatically run tests when changes are pushed to the repository.
+## Overview
 
-Folder Structure
+This project implements basic arithmetic functions in Python and automates testing using **Pytest** and **Unittest**. **GitHub Actions** is set up to automatically run tests when changes are pushed to the repository.
+
+## Folder Structure
+
+```
 mlops_lab_01/
 │
 ├── .github/
@@ -23,33 +26,36 @@ mlops_lab_01/
 │
 ├── requirements.txt      # Dependencies (pytest, unittest)
 └── .gitignore            # Exclude unnecessary files
+```
 
-Setup Instructions
+## Setup Instructions
 
-Create and activate virtual environment:
+1. **Create and activate virtual environment**:
 
-python -m venv lab_01
-source lab_01/bin/activate
+   ```bash
+   python -m venv lab_01
+   source lab_01/bin/activate
+   ```
 
+2. **Install dependencies**:
 
-Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-pip install -r requirements.txt
+3. **Run Tests Locally**:
 
+   * **Pytest**:
 
-Run Tests Locally:
+     ```bash
+     pytest test/test_pytest.py
+     ```
+## GitHub Actions
 
-Pytest:
+* **Pytest** and **Unittest** workflows are defined to run on **push** events to the `main` branch.
+* Workflows are located in `.github/workflows/pytest.yml` and `.github/workflows/unittest.yml`.
 
-pytest test/test_pytest.py
-
-
-GitHub Actions
-
-Pytest and Unittest workflows are defined to run on push events to the main branch.
-
-Workflows are located in .github/workflows/pytest.yml and .github/workflows/unittest.yml.
-
-License
+## License
 
 MIT License
+
